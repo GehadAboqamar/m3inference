@@ -7,6 +7,11 @@ from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
 
+from PIL import Image
+import requests
+from io import BytesIO
+
+from .preprocess import download_resize_img
 from .utils import *
 
 logger = logging.getLogger(__name__)
@@ -87,8 +92,19 @@ class M3InferenceDataset(Dataset):
     def __len__(self):
         return len(self.data)
 
+
+
+
+
     def _image_loader(self, image_name):
-        image = Image.open(image_name)
+        #image = Image.open(image_name)
+        response = requests.get(image_name)
+        image = Image.open(BytesIO(response.content))
+        image = image.resize((224, 224), Image.BILINEAR)
+        # logger.info(f'{(image)} data entries loaded.')
+        # print(image)
+        # img = Image.open(image)
+        image.show()
         return self.tensor_trans(image)
 
 
