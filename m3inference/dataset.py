@@ -100,7 +100,7 @@ class M3InferenceDataset(Dataset):
         #image = Image.open(image_name)
         response = requests.get(image_name)
         image = Image.open(BytesIO(response.content))
-        image = image.resize((224, 224), Image.BILINEAR).convert('RGB')
+        image = image.resize((224, 224), Image.BILINEAR)
         if str(image.mode) != "RGB":
             image = image.convert('RGB')
         # logger.info(f'{(image)} data entries loaded.')
