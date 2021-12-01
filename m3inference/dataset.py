@@ -100,12 +100,17 @@ class M3InferenceDataset(Dataset):
 
 
     def _image_loader(self, image_name):
+         
         #image = Image.open(image_name)
         response = requests.get(image_name , stream=True)
-        image = Image.open(io.BytesIO(response.content))
-        image = image.resize((224, 224), Image.BILINEAR)
-        if str(image.mode) != "RGB":
-            image = image.convert('RGB')
+        if str(response) != "<Response [200]>":
+     
+            image = ' '
+        else:
+            image = Image.open(io.BytesIO(response.content))
+            image = image.resize((224, 224), Image.BILINEAR)
+            if str(image.mode) != "RGB":
+                image = image.convert('RGB')
         # logger.info(f'{(image)} data entries loaded.')
         #image.show()
         return self.tensor_trans(image)
