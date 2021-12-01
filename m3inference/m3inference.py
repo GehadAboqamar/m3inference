@@ -130,12 +130,7 @@ class M3Inference:
           
             for batch in tqdm(dataloader, desc='Predicting...', disable=logging.root.level>=logging.WARN):
               batch = [i.to(self.device) for i in batch]
-              try:
-                print("update Doneeeeeee")
-                pred = self.model(batch)
-              except:
-                pass
-
+              pred = self.model(batch)
               y_pred.append([_pred.detach().cpu().numpy() for _pred in pred])
               
                 
