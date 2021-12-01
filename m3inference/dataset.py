@@ -104,7 +104,7 @@ class M3InferenceDataset(Dataset):
         #image = Image.open(image_name)
         response = requests.get(image_name , stream=True)
         if str(response) != "<Response [200]>":
-     
+            print("bad url")
             image = ' '
         else:
             image = Image.open(io.BytesIO(response.content))
