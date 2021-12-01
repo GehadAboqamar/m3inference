@@ -127,11 +127,17 @@ class M3Inference:
                                 num_workers=num_workers, pin_memory=True)
         y_pred = []
         with torch.no_grad():
+          
             for batch in tqdm(dataloader, desc='Predicting...', disable=logging.root.level>=logging.WARN):
+              try:
+                
                 batch = [i.to(self.device) for i in batch]
                 pred = self.model(batch)
-                y_pred.append([_pred.detach().cpu().numpy() for _pred in pred])
+              except:
 
+              y_pred.append([_pred.detach().cpu().numpy() for _pred in pred])
+              
+                
         if output_format == 'json':
             return self.format_json_output(data, y_pred)
         else:
