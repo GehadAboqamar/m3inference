@@ -103,14 +103,10 @@ class M3InferenceDataset(Dataset):
          
         #image = Image.open(image_name)
         response = requests.get(image_name , stream=True)
-        if str(response) != "<Response [200]>":
-            print("bad url")
-            image = ' '
-        else:
-            image = Image.open(io.BytesIO(response.content))
-            image = image.resize((224, 224), Image.BILINEAR)
-            if str(image.mode) != "RGB":
-                image = image.convert('RGB')
+        image = Image.open(io.BytesIO(response.content))
+        image = image.resize((224, 224), Image.BILINEAR)
+        if str(image.mode) != "RGB":
+            image = image.convert('RGB')
         # logger.info(f'{(image)} data entries loaded.')
         #image.show()
         return self.tensor_trans(image)
