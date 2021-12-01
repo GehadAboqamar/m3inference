@@ -135,7 +135,7 @@ class M3Inference:
                 pred = self.model(batch)
               except:
 
-              y_pred.append([_pred.detach().cpu().numpy() for _pred in pred])
+                y_pred.append([_pred.detach().cpu().numpy() for _pred in pred])
               
                 
         if output_format == 'json':
