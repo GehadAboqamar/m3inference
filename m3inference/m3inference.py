@@ -102,7 +102,7 @@ class M3Inference:
         self.model.load_state_dict(torch.load(model_path, map_location=self.device))
         logger.info(f'Loaded pretrained weight at {model_path}')
 
-    def infer(self, data_or_datapath, output_format='json', batch_size=16, num_workers=4):
+    def infer(self, data_or_datapath, output_format='json', batch_size=1, num_workers=4):
         """
         Predict attributes
         :param data_or_datapath: a list of jsons or the path to the json file. For each json entry, the following keys are expected: `id`, `name`, `screen_name`, `description`, `lang`, `img_path` (required when using the full model)
